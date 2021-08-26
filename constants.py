@@ -1,5 +1,6 @@
 DEFAULT_OUTPUT_FOLDER = 'output'
 ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co'
+GRACE_PERIOD = 20  # 20 second between each test, because the alpha vantage api allows only 5 requests per 1 minute
 
 
 class AlphaVantageKeys(object):

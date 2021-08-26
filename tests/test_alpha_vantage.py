@@ -8,17 +8,22 @@ from typing import Dict, Union
 from dateutil.parser import parse
 
 from alpha_vantage.alpha_vantage import AlphaVantage
-from constants import DEFAULT_OUTPUT_FOLDER
+from constants import DEFAULT_OUTPUT_FOLDER, GRACE_PERIOD
 from helpers.custom_exceptions_helper import WrongInputValueException, AlphaVantageApiException
 
 
 class AlphaVantageTest(unittest.TestCase):
 
-    def setUp(self):
-        self._OUTPUT_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), DEFAULT_OUTPUT_FOLDER)
-        os.mkdir(self._OUTPUT_PATH)
-        self._API_KEY = 'TEST_API_KEY'
-        self.alpha_vantage = AlphaVantage(key=self._API_KEY, output_format='csv')
+    @classmethod
+    def setUpClass(cls):
+        """
+        This is run once, when initiating the class
+        :return:
+        """
+        cls._OUTPUT_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), DEFAULT_OUTPUT_FOLDER)
+        os.mkdir(cls._OUTPUT_PATH)
+        cls._API_KEY = 'TEST_API_KEY'
+        cls.alpha_vantage = AlphaVantage(key=cls._API_KEY, output_format='csv')
 
     def test_search_api(self):
         """ Test search api
@@ -213,5 +218,18 @@ class AlphaVantageTest(unittest.TestCase):
             reader_file.close()
 
     def tearDown(self) -> None:
+        """
+        This is run after each test run
+        :return:
+        """
+
+        time.sleep(GRACE_PERIOD)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        """
+        This is run only once, when all tests are finished
+        :return:
+        """
         # remove the created folder
-        shutil.rmtree(self._OUTPUT_PATH)
+        shutil.rmtree(cls._OUTPUT_PATH)

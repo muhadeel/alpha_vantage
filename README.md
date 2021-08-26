@@ -20,7 +20,7 @@ alpha_vantage
 │   └── custom_exceptions_helper.py
 ├── tests
 │   └── __init__.py
-│   └── alpha_vantage_test.py
+│   └── test_alpha_vantage.py
 └── alpha_vantage_runner.py
 └── constants.py
 └── main.py
@@ -69,9 +69,16 @@ optional arguments:
 To run the unit tests:
 From the mail directory, run this command.
 ```
-python -m unittest tests/alpha_vantage_test.py
+python -m unittest tests/test_alpha_vantage.py
 ```
 
-## Sample ouptut
+```
+Ran 7 tests in 650.163s
+
+OK
+```
+Between each test, there is a delpy time period of (20 seconds), to prevent exceeding the usage limit (5 requests per minute). 
+
+## Sample output
 
 You can find some sample output saved in `output` folder. 
